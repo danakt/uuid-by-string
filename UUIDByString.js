@@ -8,7 +8,7 @@
  */
 
 !function(){
-    let UUID = getUUIDByString('Допустим, какая-то строка.');
+    let UUID = getUUIDByString('Допустим, какая-то строка');
     console.log(UUID);
 }();
 
