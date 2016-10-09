@@ -14,7 +14,8 @@
 
 function getUUIDByString(str){
     function getHex(str, key, maxlen){
-        let n = i = count = 1;
+        let n, i, count;
+        n = i = count = 1;
         str = str.trim();
 
         // NOTE: 14-значное число в hex равно 16-значному в base-10,
@@ -24,6 +25,7 @@ function getUUIDByString(str){
         for(; true; i++){
             if(count++ >= str.length && n.toString(16).length >= maxlen)
                 break;
+
             if(str[i] === undefined)
                 i = 0;
 
