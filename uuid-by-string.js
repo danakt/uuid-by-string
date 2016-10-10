@@ -7,11 +7,6 @@
  * @returns {string} UUID в формате «XXXXXXXX-XXXX-4XXX-YXXX-XXXXXXXXXXXX»
  */
 
-!function(){
-    let UUID = getUUIDByString('Допустим, какая-то строка');
-    console.log(UUID);
-}();
-
 function getUUIDByString(str){
     function getHex(str, key, maxlen){
         let n, i, count;
@@ -43,9 +38,9 @@ function getUUIDByString(str){
         let s = [
             p[0],
             p[1].substr(0, 4),
-            4 + p[1].substr(4, 7),
+            4 + p[1].substr(4, 3),
             (Number('0x'+ p[1][7]) & 0x3 | 0x8).toString(16)
-                + p[1].substr(8, 11),
+                + p[1].substr(8, 3),
             p[2]
         ];
 
