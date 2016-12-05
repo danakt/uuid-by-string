@@ -1,10 +1,10 @@
 /**
- * Сниппет для генерации UUID с привязкой к строке
+ * Snippet for generating UUID with reference to the line
  * @author Danakt Frost <github.com/danakt/uuid-by-string>
  *
  * @function getUUIDByString
- * @param {string} str Строка для получения UUID
- * @returns {string} UUID в формате «XXXXXXXX-XXXX-4XXX-YXXX-XXXXXXXXXXXX»
+ * @param {string} str String for get UUID
+ * @returns {string} UUID format «XXXXXXXX-XXXX-4XXX-YXXX-XXXXXXXXXXXX»
  */
 
 function getUUIDByString(str){
@@ -13,8 +13,8 @@ function getUUIDByString(str){
         n = i = count = 1;
         str = str.trim();
 
-        // NOTE: 14-значное число в hex равно 16-значному в base-10,
-        // в свою очередь, js округляет всё, что идёт после 16-го знака в числе
+        // NOTE: 14-digit number in hex is 16-digit in base-10,
+        // In turn, the js rounds everything that comes after the 16th sign among
         maxlen = Math.min(maxlen || 14, 14);
 
         for(; true; i++){
