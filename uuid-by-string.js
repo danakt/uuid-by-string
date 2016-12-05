@@ -54,9 +54,11 @@ function getUUIDByString(str){
     ]);
 }
 
-if(exports !== undefined){
-    if(module !== undefined && module.exports)
-        exports = module.exports = getUUIDByString;
+try {
+    if(exports !== undefined){
+        if(module !== undefined && module.exports)
+            exports = module.exports = getUUIDByString;
 
-    exports.getUUIDByString = getUUIDByString;
-}
+        exports.getUUIDByString = getUUIDByString;
+    }
+} catch(e) {}
