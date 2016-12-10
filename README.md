@@ -1,5 +1,5 @@
 # UUID by string
-Snippet for get UUID based on string
+Generating UUID based on string
 ## Usage
 **Node.js**
 ```shell
