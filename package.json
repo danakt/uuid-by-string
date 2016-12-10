@@ -1,6 +1,6 @@
 {
   "name": "uuid-by-string",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Generating UUID based on string",
   "main": "uuid-by-string.js",
   "scripts": {
