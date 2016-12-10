@@ -1,14 +1,14 @@
 {
   "name": "uuid-by-string",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Snippet for get UUID based on string",
   "main": "uuid-by-string.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -c"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Danakt/UUID-by-string.git"
+    "url": "git+https://github.com/Danakt/uuid-by-string.git"
   },
   "keywords": [
     "uuid",
@@ -17,9 +17,9 @@
   "author": "Danakt Frost",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Danakt/UUID-by-string/issues"
+    "url": "https://github.com/Danakt/uuid-by-string/issues"
   },
-  "homepage": "https://github.com/Danakt/UUID-by-string#readme",
+  "homepage": "https://github.com/Danakt/uuid-by-string",
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.2.0"

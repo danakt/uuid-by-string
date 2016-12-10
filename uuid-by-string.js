@@ -1,6 +1,6 @@
 /**
  * Snippet for generating UUID with reference to the line
- * @author Danakt Frost <github.com/danakt/uuid-by-string>
+ * @author Danakt Frost <mail@danakt.ru>
  *
  * @function getUUIDByString
  * @param {string} str String for get UUID
@@ -54,11 +54,10 @@ function getUUIDByString(str){
     ]);
 }
 
-try {
-    if(exports !== undefined){
-        if(module !== undefined && module.exports)
-            exports = module.exports = getUUIDByString;
-
-        exports.getUUIDByString = getUUIDByString;
-    }
-} catch(e) {}
+if(typeof module !== "undefined" && module.exports) {
+    module.exports = getUUIDByString;
+} else if(window) {
+    window.getUUID = getUUIDByString;
+} else {
+    throw new Error('Unknown environment');
+}
