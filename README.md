@@ -1,5 +1,6 @@
 # UUID by string
-### Usage
+Snippet for get UUID based on string
+## Usage
 **Node.js**
 ```shell
 npm install uuid-by-string
