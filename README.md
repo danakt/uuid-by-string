@@ -2,6 +2,7 @@
 Generating UUID based on string  
 
 [![npm](https://img.shields.io/npm/v/uuid-by-string.svg)](https://www.npmjs.com/package/uuid-by-string)
+[![Travis CI](https://api.travis-ci.org/danakt/uuid-by-string.svg?branch=master)](https://travis-ci.org/danakt/uuid-by-string)
 ## Usage
 **Node.js**
 ```shell
