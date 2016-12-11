@@ -1,5 +1,5 @@
 # UUID by string
-Generating UUID based on string
+Generating UUID based on string  
 [![npm](https://img.shields.io/npm/v/uuid-by-string.svg)](https://www.npmjs.com/package/uuid-by-string)
 ## Usage
 **Node.js**
