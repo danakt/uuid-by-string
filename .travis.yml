@@ -1,5 +1,4 @@
 language: node_js
 node_js:
-  - "latest"
-  - "6"
-  - "0.6"
+  - "8"
+  - "4"
