@@ -17,6 +17,11 @@ describe('Test algorithm no changes', function() {
         expect(getUUID('Donec porttitor, lacus vel faucibus dapibus, est ex mattis libero, in tempor neque enim ut lacus. Maecenas non ultricies massa, in vulputate risus. Duis ut mi suscipit, hendrerit magna id, semper velit. Maecenas at diam nec sem rutrum imperdiet. Mauris faucibus magna tellus, at fringilla mauris dictum vel. Pellentesque fringilla odio massa, ut luctus sem molestie suscipit. Vestibulum quis nisi orci.'))
             .to.equal('52E64C39-C7F3-4076-AC69-6496DBF625F3')
     })
+
+    it('Empty string', function() {
+        expect(getUUID(''))
+            .to.equal('00000000-0000-4000-8000-000000000000')
+    })
 })
 
 var str
