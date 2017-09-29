@@ -1,6 +1,8 @@
 /**
  * Generating UUID based on a string
  * @author Danakt Frost <mail@danakt.ru>
+ *
+ * @todo Make it faster
  */
 
 /** 
