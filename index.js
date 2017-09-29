@@ -5,7 +5,13 @@
  * @todo Make it faster
  */
 
-/** 
+/**
+ * Default UUID for empty string
+ * @type {string}
+ */
+var DEFAULT_UUID = '00000000-0000-4000-8000-000000000000'
+
+/**
  * Generates part of UUID
  * @param  {string} input
  * @param  {number} key
@@ -45,16 +51,16 @@ function generatePart(input, key, maxlen) {
     return n.toString(16)
 }
 
-/** 
+/**
  * Formats parts of UUID
- * @param  {Array<string>} parts 
+ * @param  {Array<string>} parts
  * @return {string}
  */
 function makeUUID(parts) {
     var init = parts[0]
     var mid  = parts[1]
     var fin  = parts[2]
-    
+
     var s = [
         init,
         mid.substr(0, 4),
@@ -66,26 +72,30 @@ function makeUUID(parts) {
     return s.join('-').toUpperCase()
 }
 
-/** 
+/**
  * Makes UUID
  * @param  {string} str — String for get UUID
  * @return {string}     — UUID
  */
 function getUUIDByString(str) {
+    if (str.length === 0) {
+        return DEFAULT_UUID
+    }
+
     var keysTable = [
         [0xf6, 8],
         [0x51c, 11],
         [0xd7a, 12],
     ]
-    
+
     var uuidParts = keysTable.map(function(item) {
         return generatePart(str, item[0], item[1])
     })
-    
+
     return makeUUID(uuidParts)
 }
 
-/** 
+/**
  * @exports
  */
 if (typeof module !== 'undefined' && module.exports) {
