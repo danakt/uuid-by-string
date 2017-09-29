@@ -1,4 +1,4 @@
-const getUUID = require('../uuid-by-string')
+const getUUID = require('../')
 const mocha   = require('mocha')
 const expect  = require('chai').expect
 
