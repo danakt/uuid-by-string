@@ -4,7 +4,7 @@
  */
 
 /** 
- * Generate part of UUID
+ * Generates part of UUID
  * @param  {string} input
  * @param  {number} key
  * @param  {number} maxlen
@@ -44,7 +44,7 @@ function generatePart(input, key, maxlen) {
 }
 
 /** 
- * Formating parts of UUID
+ * Formats parts of UUID
  * @param  {Array<string>} parts 
  * @return {string}
  */
@@ -65,10 +65,10 @@ function makeUUID(parts) {
 }
 
 /** 
-* @function getUUIDByString
-* @param  {string} str — String for get UUID
-* @return {string}     — UUID
-*/
+ * Makes UUID
+ * @param  {string} str — String for get UUID
+ * @return {string}     — UUID
+ */
 function getUUIDByString(str) {
     var keysTable = [
         [0xf6, 8],
