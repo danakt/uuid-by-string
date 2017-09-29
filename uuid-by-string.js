@@ -1,33 +1,16 @@
 /**
- * Snippet for generating UUID based on a string
+ * Generating UUID based on a string
  * @author Danakt Frost <mail@danakt.ru>
  */
 
-/** ----------------------------------------------------------------------------
- * @param  {String} a
- * @param  {String} b
- * @param  {String} c
- * @return {String}
+/** 
+ * Generate part of UUID
+ * @param  {string} input
+ * @param  {number} key
+ * @param  {number} maxlen
+ * @return {string}
  */
-function makeUUID(a, b, c) {
-    var s = [
-        a,
-        b.substr(0, 4),
-        4 + b.substr(4, 3),
-        (Number('0x' + b[7]) & 0x3 | 0x8).toString(16) + b.substr(8, 3),
-        c
-    ]
-
-    return s.join('-').toUpperCase()
-}
-
-/** ----------------------------------------------------------------------------
- * @param  {String} input
- * @param  {Number} key
- * @param  {Number} maxlen
- * @return {String}
- */
-function getHex(input, key, maxlen) {
+function generatePart(input, key, maxlen) {
     var n = 1
     var i = 1
     var count = 1
@@ -60,20 +43,47 @@ function getHex(input, key, maxlen) {
     return n.toString(16)
 }
 
-/** ----------------------------------------------------------------------------
-* @function getUUIDByString
-* @param    {String} str — String for get UUID
-* @returns  {String}     — UUID
-*/
-function getUUIDByString(str) {
-   return makeUUID(
-       getHex(str, 0xf6, 8),
-       getHex(str, 0x51c, 11),
-       getHex(str, 0xd7a, 12)
-   )
+/** 
+ * Formating parts of UUID
+ * @param  {Array<string>} parts 
+ * @return {string}
+ */
+function makeUUID(parts) {
+    var init = parts[0]
+    var mid  = parts[1]
+    var fin  = parts[2]
+    
+    var s = [
+        init,
+        mid.substr(0, 4),
+        4 + mid.substr(4, 3),
+        (Number('0x' + mid[7]) & 0x3 | 0x8).toString(16) + mid.substr(8, 3),
+        fin
+    ]
+
+    return s.join('-').toUpperCase()
 }
 
-/** ----------------------------------------------------------------------------
+/** 
+* @function getUUIDByString
+* @param  {string} str — String for get UUID
+* @return {string}     — UUID
+*/
+function getUUIDByString(str) {
+    var keysTable = [
+        [0xf6, 8],
+        [0x51c, 11],
+        [0xd7a, 12],
+    ]
+    
+    var uuidParts = keysTable.map(function(item) {
+        return generatePart(str, item[0], item[1])
+    })
+    
+    return makeUUID(uuidParts)
+}
+
+/** 
  * @exports
  */
 if (typeof module !== 'undefined' && module.exports) {
