@@ -2,7 +2,7 @@
 Generating UUID based on a string
 
 [![npm](https://img.shields.io/npm/v/uuid-by-string.svg?style=flat-square)](https://www.npmjs.com/package/uuid-by-string)
-[![Travis](https://img.shields.io/travis/danakt/uuid-by-string.svg?style=flat-square)]()
+[![Build Status](https://travis-ci.org/danakt/uuid-by-string.svg?style=flat-square)](https://travis-ci.org/danakt/uuid-by-string)
 
 ## Usage
 **Node.js**
