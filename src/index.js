@@ -59,7 +59,7 @@ function generatePart(input, key, maxlen) {
  * @param  {Array<string>} parts
  * @return {string}
  */
-function makeUUID(parts) {
+function formatUuid(parts) {
   var init = parts[0]
   var mid  = parts[1]
   var fin  = parts[2]
@@ -77,10 +77,10 @@ function makeUUID(parts) {
 
 /**
  * Makes UUID
- * @param  {string} str — String for get UUID
- * @return {string}     — UUID
+ * @param  {string} str String for get UUID
+ * @return {string}     UUID
  */
-function getUUIDByString(str) {
+function getUuidByString(str) {
   if (str.length === 0) {
     return DEFAULT_UUID
   }
@@ -95,7 +95,7 @@ function getUUIDByString(str) {
     return generatePart(str, item[0], item[1])
   })
 
-  return makeUUID(uuidParts)
+  return formatUuid(uuidParts)
 }
 
 /**
@@ -117,9 +117,9 @@ function removeTrailingZeros(int) {
  * @exports
  */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = getUUIDByString
+  module.exports = getUuidByString
 } else if (typeof window !== 'undefined') {
-  window.getUUID = getUUIDByString
+  window.getUUID = getUuidByString
 } else {
   throw new Error('Unknown environment')
 }
