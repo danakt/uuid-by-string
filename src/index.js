@@ -29,9 +29,10 @@ function generatePart(input, key, maxlen) {
   var i = 1
   var count = 1
   var str = input.trim()
+  var strLength = str.length
 
   while (true) {
-    if (count >= str.length && getLengthOfHex(n) >= maxlen) {
+    if (count >= strLength && getLengthOfHex(n) >= maxlen) {
       break
     }
 
@@ -41,7 +42,7 @@ function generatePart(input, key, maxlen) {
       i = 0
     }
 
-    n *= (str.charCodeAt(i) + (i * str.length)) * key
+    n *= (str.charCodeAt(i) + (i * strLength)) * key
     n = removeTrailingZeros(n)
 
     while (getLengthOfHex(n) > maxlen) {
