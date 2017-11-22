@@ -31,7 +31,7 @@ function generatePart(input, key, maxlen) {
   var str = input.trim()
 
   while (true) {
-    if (count >= str.length && n.toString(16).length >= maxlen) {
+    if (count >= str.length && getLengthOfHex(n) >= maxlen) {
       break
     }
 
@@ -44,7 +44,7 @@ function generatePart(input, key, maxlen) {
     n *= (str.charCodeAt(i) + (i * str.length)) * key
     n = removeTrailingZeros(n)
 
-    while (n.toString(16).length > maxlen) {
+    while (getLengthOfHex(n) > maxlen) {
       n = Math.floor(n / 10)
     }
 
@@ -111,6 +111,24 @@ function removeTrailingZeros(int) {
   }
 
   return out
+}
+
+/**
+ * Returns length length of hexadecimal representation of decadic number
+ * @param  {number} int 10-degit integer
+ * @return {number}     length of 16-degit number
+ */
+function getLengthOfHex(int) {
+  // number.toString(16).length — too slow
+  var len = 1
+  var acc = int
+
+  while (acc / 16 > 1) {
+    acc /= 16
+    len++
+  }
+
+  return len
 }
 
 /**
