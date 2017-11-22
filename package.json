@@ -1,8 +1,8 @@
 {
   "name": "uuid-by-string",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Generating UUID based on string",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha -c -s 0"
   },
@@ -22,6 +22,6 @@
   "homepage": "https://github.com/Danakt/uuid-by-string",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.5.3"
   }
 }
