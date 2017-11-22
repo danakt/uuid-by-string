@@ -14,8 +14,13 @@ describe('Test algorithm no changes', function() {
     })
 
     it('Long string', function() {
-        expect(getUUID('Donec porttitor, lacus vel faucibus dapibus, est ex mattis libero, in tempor neque enim ut lacus. Maecenas non ultricies massa, in vulputate risus. Duis ut mi suscipit, hendrerit magna id, semper velit. Maecenas at diam nec sem rutrum imperdiet. Mauris faucibus magna tellus, at fringilla mauris dictum vel. Pellentesque fringilla odio massa, ut luctus sem molestie suscipit. Vestibulum quis nisi orci.'))
-            .to.equal('52E64C39-C7F3-4076-AC69-6496DBF625F3')
+        var str = `Donec sit amet vestibulum ante. Donec semper ante et odio imperdiet viverra. Vestibulum non lectus ac urna ultricies dictum. Maecenas non elementum purus. Donec non ex pharetra, volutpat arcu sit amet, vulputate diam. Nulla gravida eros ac condimentum cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius ipsum neque, ac eleifend metus interdum nec. Nullam cursus leo quis faucibus cursus. Ut fermentum, enim commodo hendrerit iaculis, magna felis fermentum nulla, nec malesuada lorem nulla sed nunc. Cras id ex posuere, tristique mi quis, malesuada libero.
+        Etiam pulvinar ex vitae velit accumsan ullamcorper. Vestibulum fringilla euismod vehicula. Donec cursus odio sed mauris consequat congue. Vestibulum vel sapien bibendum quam porttitor molestie et sed diam. Fusce ac ullamcorper eros. Donec a nibh sed urna laoreet imperdiet et ac nisl. Ut at rutrum urna. Praesent vel leo diam. Etiam suscipit auctor tincidunt. Aenean pretium, eros quis lacinia ultricies, sapien turpis ultricies lorem, sit amet porta mi odio ut elit. Sed a enim nunc.
+        Vestibulum eu dapibus augue. Vivamus luctus ipsum in hendrerit lacinia. Sed purus turpis, ultrices a nibh a, aliquam lacinia nibh. Proin aliquet nunc purus, vel elementum turpis consequat scelerisque. Proin ornare nibh et ultrices lacinia. Nulla sed dictum velit, eu accumsan arcu. Phasellus elit augue, hendrerit vel accumsan sit amet, tempor sit amet est. Nulla facilisi. Curabitur tempus lorem arcu, id mollis elit tristique at. Duis vel bibendum felis. Phasellus vestibulum in arcu in dictum. Vestibulum sit amet interdum nisi. Fusce et lorem tortor. In id condimentum ante. Ut ac erat posuere, convallis sem a, convallis lacus.
+        Sed purus nulla, rhoncus in malesuada vel, cursus ut velit. Nunc et odio eu nibh tristique consequat. Phasellus gravida neque vitae lorem hendrerit, sed efficitur quam porta. Nam varius odio ac sem fermentum tempor. Phasellus nunc mauris, fermentum at lobortis eget, ultricies sollicitudin sem. Mauris non arcu at metus rutrum ullamcorper eget eget turpis. Nulla mi quam, venenatis vel pharetra sed, viverra sit amet lacus. Sed orci justo, faucibus sit amet quam ac, pulvinar porta dui. Nunc placerat erat nec mauris ullamcorper, vel tempor lacus sagittis. Nunc nibh magna, vehicula at dui et, finibus consequat ipsum.`
+
+        expect(getUUID(str))
+            .to.equal('DE71FF4E-791A-4D5B-9070-7BB4CCDC2036')
     })
 
     it('Empty string', function() {
