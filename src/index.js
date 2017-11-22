@@ -19,33 +19,36 @@ var DEFAULT_UUID = '00000000-0000-4000-8000-000000000000'
  * @return {string}
  */
 function generatePart(input, key, maxlen) {
+    // 14-digit number in hex is 16-digit in base-10, in turn, the js
+    // rounds everything that comes after the 16th sign among
+    if (maxlen == null || maxlen > 14) {
+        return generatePart(input, key, 14)
+    }
+
     var n = 1
     var i = 1
     var count = 1
-
     var str = input.trim()
 
-    /**
-     * 14-digit number in hex is 16-digit in base-10, in turn, the js
-     * rounds everything that comes after the 16th sign among
-     */
-    maxlen = Math.min(maxlen || 14, 14)
-
-    for (; true; i++) {
-        if (count++ >= str.length && n.toString(16).length >= maxlen) {
+    while (true) {
+        if (count >= str.length && n.toString(16).length >= maxlen) {
             break
         }
+
+        count++
 
         if (str[i] == null) {
             i = 0
         }
 
         n *= (str.charCodeAt(i) + (i * str.length)) * key
-        n = Number(String(n).replace(/0+$/g, ''))
+        n = removeTrailingZeros(n)
 
         while (n.toString(16).length > maxlen) {
             n = Math.floor(n / 10)
         }
+
+        i++
     }
 
     return n.toString(16)
@@ -93,6 +96,21 @@ function getUUIDByString(str) {
     })
 
     return makeUUID(uuidParts)
+}
+
+/**
+ * Removes trailing zeros in integer
+ * @param  {number} int
+ * @return {number}
+ */
+function removeTrailingZeros(int) {
+    var out = int
+
+    while(Math.round(out / 10) * 10 === out) {
+        out /= 10
+    }
+
+    return out
 }
 
 /**
