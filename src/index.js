@@ -65,42 +65,35 @@ function generatePart(input, key, maxlen) {
 }
 
 /**
- * Formats parts of UUID
- * @param  {Array<string>} parts
- * @return {string}
- */
-function formatUuid(parts) {
-  var init = parts[0]
-  var mid = parts[1]
-  var fin = parts[2]
-
-  var s = [
-    init,
-    mid.substr(0, 4),
-    4 + mid.substr(4, 3),
-    (Number('0x' + mid[7]) & 0x3 | 0x8).toString(16) + mid.substr(8, 3),
-    fin
-  ]
-
-  return s.join('-').toUpperCase()
-}
-
-/**
  * Makes UUID
- * @param  {string} str String for get UUID
- * @return {string}     UUID
+ * @param  {string} input String for get UUID
+ * @return {string}       UUID
  */
-function getUuidByString(str) {
+function getUuidByString(input) {
+  var str = input.toString()
+
   if (str.length === 0) {
     return DEFAULT_UUID
   }
 
   var lengthsList = [8, 11, 12]
-  var uuidParts = KEYS_TABLE.map(function (hex, i) {
+  var parts = KEYS_TABLE.map(function (hex, i) {
     return generatePart(str, hex, lengthsList[i])
   })
 
-  return formatUuid(uuidParts)
+  // Prepare parts of UUID
+  // UUID: 00000000-0000-4000-8000-000000000000
+  //            ↓    ↓    ↓    ↓    ↓
+  // Parts:     1    2    3    4    5
+  var preparedParts = [
+    parts[0],
+    parts[1].substr(0, 4),
+    4 + parts[1].substr(4, 3),
+    (parseInt(parts[1][7], 16) & 0x3 | 0x8).toString(16) + parts[1].substr(8, 3),
+    parts[2]
+  ].join('-')
+
+  return preparedParts.toUpperCase()
 }
 
 /**
@@ -142,6 +135,8 @@ function getLengthOfHex(int) {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = getUuidByString
 } else if (typeof window !== 'undefined') {
+  window.getUuidByString = getUuidByString
+  // Legacy
   window.getUUID = getUuidByString
 } else {
   throw new Error('Unknown environment')
