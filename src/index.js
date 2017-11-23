@@ -7,6 +7,7 @@
  * — 0.4
  * Made faster more than 10 times
  */
+'use strict'
 
 /**
  * Default UUID for empty string
@@ -112,12 +113,14 @@ function removeTrailingZeros(int) {
 }
 
 /**
- * Returns length length of hexadecimal representation of decadic number
+ * Returns length of hexadecimal representation of decadic number
  * @param  {number} int 10-degit integer
  * @return {number}     length of 16-degit number
+ *
+ * Analog of slower variant:
+ * @code number.toString(16).length
  */
 function getLengthOfHex(int) {
-  // number.toString(16).length — too slow
   var len = 1
   var acc = int
 
