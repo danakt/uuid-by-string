@@ -20,7 +20,7 @@ console.log(getUuidByString('Some string'))
 ``` html
 <script src="./node_modules/uuid-by-string/src/index.js"></script>
 <script>
-  const getUuidByString = window.getUuidByString('Some string')
+  const getUuidByString = window.getUuidByString
 
   console.log(getUuidByString('Some string'))
   // 27FA491B-B045-4B33-A111-B38BF6F0F34C
