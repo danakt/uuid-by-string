@@ -37,34 +37,30 @@ function generatePart(input, key, maxHexLength) {
     return generatePart(input, key, 14)
   }
 
-  var n = 1
-  var i = 1
+  var acc = 1
+  var charIndex = 1
   var count = 1
   var str = input.trim()
   var strLength = str.length
 
-  while (true) {
-    if (count >= strLength && getLengthOfHex(n) >= maxHexLength) {
-      break
-    }
-
+  while (count < strLength || getLengthOfHex(acc) < maxHexLength) {
     count++
 
-    if (!str.charAt(i)) {
-      i = 0
+    if (str.charAt(charIndex) === '') {
+      charIndex = 0
     }
 
-    n *= (str.charCodeAt(i) + (i * strLength)) * key
-    n = removeTrailingZeros(n)
+    acc *= (str.charCodeAt(charIndex) + (charIndex * strLength)) * key
+    acc = removeTrailingZeros(acc)
 
-    while (getLengthOfHex(n) > maxHexLength) {
-      n = Math.floor(n / 10)
+    while (getLengthOfHex(acc) > maxHexLength) {
+      acc = Math.floor(acc / 10)
     }
 
-    i++
+    charIndex++
   }
 
-  return n.toString(16)
+  return acc.toString(16)
 }
 
 /**
