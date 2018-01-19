@@ -1,7 +1,8 @@
 # uuid-by-string
 Generating uuid-hash from string
 
-[![npm](https://img.shields.io/npm/v/uuid-by-string.svg?style=flat-square)](https://www.npmjs.com/package/uuid-by-string)
+[![NPM](https://img.shields.io/npm/v/uuid-by-string.svg?style=flat-square)](https://www.npmjs.com/package/uuid-by-string)
+[![Downloads](https://img.shields.io/npm/dw/uuid-by-string.svg?style=flat-square)](https://www.npmjs.com/package/uuid-by-string)
 [![Build Status](https://img.shields.io/travis/danakt/uuid-by-string.svg?style=flat-square)](https://travis-ci.org/danakt/uuid-by-string)
 
 ## Usage
