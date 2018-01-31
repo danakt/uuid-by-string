@@ -64,38 +64,6 @@ function generatePart(input, key, maxHexLength) {
 }
 
 /**
- * Makes UUID
- * @param  {string} input String for get UUID
- * @return {string}       UUID
- */
-function getUuidByString(input) {
-  var str = input.toString()
-
-  if (str.length === 0) {
-    return DEFAULT_UUID
-  }
-
-  var lengthsList = [8, 11, 12]
-  var parts = KEYS_TABLE.map(function (hex, i) {
-    return generatePart(str, hex, lengthsList[i])
-  })
-
-  // Prepare parts of UUID
-  // UUID: 00000000-0000-4000-8000-000000000000
-  //            ↓    ↓    ↓    ↓    ↓
-  // Parts:     1    2    3    4    5
-  var preparedParts = [
-    parts[0],
-    parts[1].substr(0, 4),
-    '4' + parts[1].substr(4, 3),
-    (parseInt(parts[1][7], 16) & 0x3 | 0x8).toString(16) + parts[1].substr(8, 3),
-    parts[2]
-  ].join('-')
-
-  return preparedParts.toUpperCase()
-}
-
-/**
  * Removes trailing zeros in integer
  * @param  {number} int
  * @return {number}
@@ -132,6 +100,38 @@ function getLengthOfHex(int) {
   }
 
   return len
+}
+
+/**
+ * Makes UUID
+ * @param  {string} input String for get UUID
+ * @return {string}       UUID
+ */
+function getUuidByString(input) {
+  var str = input.toString()
+
+  if (str.length === 0) {
+    return DEFAULT_UUID
+  }
+
+  var lengthsList = [8, 11, 12]
+  var parts = KEYS_TABLE.map(function (hex, i) {
+    return generatePart(str, hex, lengthsList[i])
+  })
+
+  // Prepare parts of UUID
+  // UUID: 00000000-0000-4000-8000-000000000000
+  //            ↓    ↓    ↓    ↓    ↓
+  // Parts:     1    2    3    4    5
+  var preparedParts = [
+    parts[0],
+    parts[1].substr(0, 4),
+    '4' + parts[1].substr(4, 3),
+    (parseInt(parts[1][7], 16) & 0x3 | 0x8).toString(16) + parts[1].substr(8, 3),
+    parts[2]
+  ].join('-')
+
+  return preparedParts.toUpperCase()
 }
 
 /**
