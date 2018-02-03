@@ -8,6 +8,8 @@
  * Made more than 10 times faster
  * — 0.5.0
  * Made twice faster
+ * — 0.6.0
+ * Added typescript typings
  */
 'use strict'
 
