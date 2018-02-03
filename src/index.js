@@ -24,46 +24,6 @@ var DEFAULT_UUID = '00000000-0000-4000-8000-000000000000'
 var KEYS_TABLE = [0xf6, 0x51c, 0xd7a]
 
 /**
- * Generates part of UUID
- * @param  {string} input
- * @param  {number} key
- * @param  {number} maxHexLength
- * @return {string}
- */
-function generatePart(input, key, maxHexLength) {
-  // 14-digit number in hex is 16-digit in base-10, in turn, the js
-  // rounds everything that comes after the 16th sign among
-  if (maxHexLength == null || maxHexLength > 14) {
-    return generatePart(input, key, 14)
-  }
-
-  var acc = 1
-  var charIndex = 1
-  var count = 1
-  var str = input.trim()
-  var strLength = str.length
-
-  while (count < strLength || getLengthOfHex(acc) < maxHexLength) {
-    count++
-
-    if (str.charAt(charIndex) === '') {
-      charIndex = 0
-    }
-
-    acc *= (str.charCodeAt(charIndex) + (charIndex * strLength)) * key
-    acc = removeTrailingZeros(acc)
-
-    while (getLengthOfHex(acc) > maxHexLength) {
-      acc = Math.floor(acc / 10)
-    }
-
-    charIndex++
-  }
-
-  return acc.toString(16)
-}
-
-/**
  * Removes trailing zeros in integer
  * @param  {number} int
  * @return {number}
@@ -90,7 +50,7 @@ function removeTrailingZeros(int) {
  * @param  {number} int 10-degit integer
  * @return {number}     length of 16-degit number
  */
-function getLengthOfHex(int) {
+function getLengthOfHexByInt(int) {
   var len = 1
   var acc = int
 
@@ -100,6 +60,46 @@ function getLengthOfHex(int) {
   }
 
   return len
+}
+
+/**
+ * Generates part of UUID
+ * @param  {string} input
+ * @param  {number} key
+ * @param  {number} maxHexLength
+ * @return {string}
+ */
+function generatePart(input, key, maxHexLength) {
+  // 14-digit number in hex is 16-digit in base-10, in turn, the js
+  // rounds everything that comes after the 16th sign among
+  if (maxHexLength == null || maxHexLength > 14) {
+    return generatePart(input, key, 14)
+  }
+
+  var acc = 1
+  var charIndex = 1
+  var count = 1
+  var str = input.trim()
+  var strLength = str.length
+
+  while (count < strLength || getLengthOfHexByInt(acc) < maxHexLength) {
+    count++
+
+    if (str.charAt(charIndex) === '') {
+      charIndex = 0
+    }
+
+    acc *= (str.charCodeAt(charIndex) + (charIndex * strLength)) * key
+    acc = removeTrailingZeros(acc)
+
+    while (getLengthOfHexByInt(acc) > maxHexLength) {
+      acc = Math.floor(acc / 10)
+    }
+
+    charIndex++
+  }
+
+  return acc.toString(16)
 }
 
 /**
