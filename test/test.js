@@ -1,4 +1,4 @@
-const getUUID = require('../src/index')
+const getUUID = require('../index')
 const mocha = require('mocha')
 const expect = require('chai').expect
 const logText = require('./longText')

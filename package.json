@@ -2,7 +2,7 @@
   "name": "uuid-by-string",
   "version": "0.6.0",
   "description": "Generating uuid-hash from string",
-  "main": "src/index.js",
+  "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
     "test": "mocha -c -s 0"
