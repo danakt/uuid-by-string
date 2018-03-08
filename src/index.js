@@ -45,19 +45,21 @@ function removeTrailingZeros(int) {
 }
 
 /**
- * Returns length of hexadecimal representation of decadic number
- * Slower variant: number.toString(16).length
+ * Returns length of hexadecimal representation of decimal number
+ * Slower variant:
+ * @code
+ *   function getLengthOfHexByInt(int) {
+ *     return int.toString(16).length
+ *   }
  *
- * @param  {number} int 10-degit integer
- * @return {number}     length of 16-degit number
+ * @param  {number} int decimal integer
+ * @return {number}     length of hex representation of the number
  */
 function getLengthOfHexByInt(int) {
-  var len = 1
   var acc = int
 
-  while (acc / 16 > 1) {
+  for (var len = 1; acc > 16; len++) {
     acc /= 16
-    len++
   }
 
   return len
@@ -71,7 +73,7 @@ function getLengthOfHexByInt(int) {
  * @return {string}
  */
 function generatePart(input, key, maxHexLength) {
-  // 14-digit number in hex is 16-digit in base-10, in turn, the js
+  // 14-digit number in hex is 16-digit in decimal, in turn, the js
   // rounds everything that comes after the 16th sign among
   if (maxHexLength == null || maxHexLength > 14) {
     return generatePart(input, key, 14)
@@ -90,7 +92,7 @@ function generatePart(input, key, maxHexLength) {
       charIndex = 0
     }
 
-    acc *= (str.charCodeAt(charIndex) + (charIndex * strLength)) * key
+    acc *= (str.charCodeAt(charIndex) + charIndex * strLength) * key
     acc = removeTrailingZeros(acc)
 
     while (getLengthOfHexByInt(acc) > maxHexLength) {
