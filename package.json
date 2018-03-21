@@ -16,7 +16,7 @@
     "guid"
   ],
   "author": "Danakt Frost",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Danakt/uuid-by-string/issues"
   },
