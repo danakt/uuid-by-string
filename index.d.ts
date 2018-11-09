@@ -1,4 +1,12 @@
 declare function getUuidByString(string: string): string
-declare module getUuidByString {}
+
+declare interface Window {
+  getUuidByString(string: string): string
+  getUUID(string: string): string
+}
+
+declare namespace getUuidByString {
+
+}
 
 export = getUuidByString

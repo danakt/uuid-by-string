@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es7", "dom"],
+    "strict": true,
+    "outDir": "./dist/",
+    "rootDir": "./src"
+  },
+  "exclude": ["./tests"]
+}
