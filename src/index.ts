@@ -1,144 +1,153 @@
-import { createHash } from 'crypto'
+/**
+ * Generation the Name-Based UUID v3 and v5 according to RFC-4122
+ * https://tools.ietf.org/html/rfc4122#section-4.3
+ *
+ * @author Danakt Frost <danakt@protonmail.com>
+ */
+import * as md5 from 'js-md5'
+import * as sha1 from 'js-sha1'
+
+/** List of hex digit for fast accessing by index */
+const HEX_DIGITS = '0123456789abcdef'.split('')
+
+/** Uin8Array with zero items */
+const EMPTY_UINT8_ARRAY = new Uint8Array(0)
 
 /**
- * Default UUID for empty string
- * @type {string}
+ * Converts unsigned byte to hex representation
  */
-const DEFAULT_UUID = '00000000-0000-4000-8000-000000000000'
+export const uint8ToHex = (byte: number): string => {
+  const first = byte >> 4
+  const second = byte - (first << 4)
+
+  return HEX_DIGITS[first] + HEX_DIGITS[second]
+}
 
 /**
- * Keys of UUID parts for hashing
- * @type {Array<number>}
+ * Converts unsigned byte buffer to hex string
  */
-const KEYS_TABLE = [0xf6, 0x51c, 0xd7a]
+export const uint8ArrayToHex = (buf: Uint8Array): string => {
+  const out: string[] = []
 
-/**
- * Removes trailing zeros in integer
- * @param  {number} int
- * @return {number}
- */
-function removeTrailingZeros(int: number) {
-  let out = int
-  let n = out / 10
-
-  // I don't know why, but that:
-  // (out % 10 === 0)
-  // 2 times slower than that:
-  while (Math.floor(n) === n) {
-    out = n
-    n = n / 10
+  for (let i = 0; i < buf.length; i++) {
+    out.push(uint8ToHex(buf[i]))
   }
+
+  return out.join('')
+}
+
+/**
+ * Converts
+ */
+export const stringToCharBuffer = (str: string) => {
+  const buffer = new Uint8Array(str.length)
+
+  for (let i = 0; i < str.length; i++) {
+    buffer[i] = str[i].charCodeAt(0)
+  }
+
+  return buffer
+}
+
+/**
+ * Generates MD5 hash from buffer
+ */
+export const md5Hash = (buf: Uint8Array): Uint8Array =>
+  new Uint8Array(md5.arrayBuffer(buf))
+
+/**
+ * Generates SHA-1 hash from buffer
+ */
+export const sha1Hash = (buf: Uint8Array): Uint8Array =>
+  new Uint8Array(sha1.arrayBuffer(buf))
+
+/**
+ * Concatenates two uint8 buffers
+ */
+export const concatBuffers = (buf1: Uint8Array, buf2: Uint8Array) => {
+  const out = new Buffer(buf1.length + buf2.length)
+
+  out.set(new Uint8Array(buf1), 0)
+  out.set(new Uint8Array(buf2), buf1.byteLength)
 
   return out
 }
 
 /**
- * Returns length of hexadecimal representation of decimal number
- * Slower variant:
- * @code
- *   function getLengthOfHexByInt(int) {
- *     return int.toString(16).length
- *   }
+ * Creates uuid from hash buffer
+ * @param hashBuffer Hash buffer
+ * @param version Version of uuid (3 or 5)
+ */
+export const hashToUuid = (
+  hashBuffer: Uint8Array,
+  version: 0x03 | 0x05
+): string => {
+  return [
+    // The low field of the timestamp
+    uint8ArrayToHex(hashBuffer.slice(0, 4)),
+    '-',
+
+    // The middle field of the timestamp
+    uint8ArrayToHex(hashBuffer.slice(4, 6)),
+    '-',
+
+    // The high field of the timestamp multiplexed with the version number
+    uint8ToHex((hashBuffer[6] & 0x0f) | (version * 10)),
+    uint8ToHex(hashBuffer[7]),
+    '-',
+
+    // The high field of the clock sequence multiplexed with the variant
+    uint8ToHex((hashBuffer[8] & 0x3f) | 0x80),
+    // The low field of the clock sequence
+    uint8ToHex(hashBuffer[9]),
+
+    '-',
+    //  The spatially unique node identifier
+
+    uint8ArrayToHex(hashBuffer.slice(10, 16))
+  ].join('')
+}
+
+/**
  *
- * @param  {number} int decimal integer
- * @return {number}     length of hex representation of the number
+ * @param value Value
+ * @param namespace Namespace
+ * @param version
  */
-function getLengthOfHexByInt(int: number): number {
-  let acc = int
-
-  for (var len = 1; acc > 16; len++) {
-    acc /= 16
+export const generateUuid = (
+  value: string,
+  namespace?: string | number,
+  version?: number
+): string => {
+  if (typeof value !== 'string') {
+    throw TypeError('Value must be string')
   }
 
-  return len
-}
-
-/**
- * Generates part of UUID
- * @param  {string} input
- * @param  {number} key
- * @param  {number} maxHexLength
- * @return {string}
- */
-function generatePart(
-  input: string,
-  key: number,
-  maxHexLength: number
-): string {
-  // 14-digit number in hex is 16-digit in decimal, in turn, the js
-  // rounds everything that comes after the 16th sign among
-  if (maxHexLength == null || maxHexLength > 14) {
-    return generatePart(input, key, 14)
+  if (typeof namespace === 'number') {
+    return generateUuid(value, undefined, namespace)
   }
 
-  let acc = 1
-  let charIndex = 1
-  let count = 1
-  const str = input.trim()
-  const strLength = str.length
-
-  while (count < strLength || getLengthOfHexByInt(acc) < maxHexLength) {
-    count++
-
-    if (str.charAt(charIndex) === '') {
-      charIndex = 0
-    }
-
-    acc *= (str.charCodeAt(charIndex) + charIndex * strLength) * key
-    acc = removeTrailingZeros(acc)
-
-    while (getLengthOfHexByInt(acc) > maxHexLength) {
-      acc = Math.floor(acc / 10)
-    }
-
-    charIndex++
+  if (version == null) {
+    return generateUuid(value, namespace, 3)
   }
 
-  return acc.toString(16)
-}
-
-/**
- * Makes UUID
- * @param  {string} input String for get UUID
- * @return {string}       UUID
- */
-function getUuidByString(input: string) {
-  const str = input.toString()
-
-  if (str.length === 0) {
-    return DEFAULT_UUID
+  if (version !== 3 && version !== 5) {
+    throw TypeError('Version of UUID can be only 3 or 5')
   }
 
-  const lengthsList = [8, 11, 12]
-  const parts = KEYS_TABLE.map((hex, i) =>
-    generatePart(str, hex, lengthsList[i])
-  )
+  const valueBuffer = stringToCharBuffer(value)
 
-  // Prepare parts of UUID
-  // UUID: 00000000-0000-4000-8000-000000000000
-  //            ↓    ↓    ↓    ↓    ↓
-  // Parts:     1    2    3    4    5
-  const preparedParts = [
-    parts[0],
-    parts[1].substr(0, 4),
-    `4${parts[1].substr(4, 3)}`,
-    ((parseInt(parts[1][7], 16) & 0x3) | 0x8).toString(16) +
-      parts[1].substr(8, 3),
-    parts[2]
-  ].join('-')
+  // TODO: Test namespace for uuid and parse to buffer
+  const namespaceBuffer =
+    typeof namespace === 'string'
+      ? stringToCharBuffer(namespace)
+      : EMPTY_UINT8_ARRAY
 
-  return preparedParts
-}
+  // Concatenation two buffers of strings to one
+  const buffer = concatBuffers(namespaceBuffer, valueBuffer)
 
-/**
- * @exports
- */
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = getUuidByString
-} else if (typeof window !== 'undefined') {
-  window.getUuidByString = getUuidByString
-  // Legacy
-  window.getUUID = getUuidByString
-} else {
-  throw new Error('Unknown environment')
+  // Getting hash
+  const hash = version === 3 ? md5Hash(buffer) : sha1Hash(buffer)
+
+  return hashToUuid(hash, version)
 }

@@ -25,14 +25,12 @@
   "homepage": "https://github.com/Danakt/uuid-by-string",
   "devDependencies": {
     "@types/jest": "^23.3.9",
+    "@types/js-md5": "^0.4.2",
     "@types/node": "^10.12.3",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
-  },
-  "dependencies": {
-    "crypto": "^1.0.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -57,5 +55,9 @@
       "lib/**",
       "ui/**"
     ]
+  },
+  "dependencies": {
+    "js-md5": "^0.7.3",
+    "js-sha1": "^0.6.0"
   }
 }
