@@ -3,8 +3,7 @@ uuid-by-string
 [![Downloads](https://img.shields.io/npm/dw/uuid-by-string.svg?style=flat-square&maxAge=3600)](https://www.npmjs.com/package/uuid-by-string)
 [![Build Status](https://img.shields.io/travis/danakt/uuid-by-string.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/danakt/uuid-by-string)
 =======================
-
-Generates uuid-hash from string
+Generates the [RFC-4122](https://tools.ietf.org/html/rfc4122#section-4.3) Name-Based UUID v3 and v5 hashes.
 
 ## Installation
 
@@ -21,23 +20,13 @@ yarn add uuid-by-string
 The package has only one default exported method. Method receives any string and returns generated hash
 
 ```js
-const getUuidByString = require('uuid-by-string')
+import getUuid from 'uuid-by-string'
 
-const uuidHash = getUuidByString('Some string')
-// 27FA491B-B045-4B33-A111-B38BF6F0F34C
+const uuidHash = getUuid('Hello world!')
+// 86fb269d-190d-1e85-b6e0-468ceca42a20
 ```
 
-The string `Some string` will always returns `27FA491B-B045-4B33-A111-B38BF6F0F34C`
-
-Also, you can use the package in browser without installing:
-
-```html
-<script src="https://unpkg.com/uuid-by-string/index.js"></script>
-<script>
-  const uuidHash = window.getUuidByString('Some string')
-  // 27FA491B-B045-4B33-A111-B38BF6F0F34C
-</script>
-```
+The string `Hello world!` will always returns `86fb269d-190d-1e85-b6e0-468ceca42a20`.
 
 ## License
 

@@ -1,12 +1,10 @@
 {
   "name": "uuid-by-string",
-  "version": "0.6.0",
+  "version": "2.0.0-alpha.0",
   "description": "Generating uuid-hash from string",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc",
     "test": "jest"
   },
   "repository": {
@@ -23,6 +21,19 @@
     "url": "https://github.com/Danakt/uuid-by-string/issues"
   },
   "homepage": "https://github.com/Danakt/uuid-by-string",
+  "jest": {
+    "testMatch": [
+      "**/tests/*.+(ts|tsx|js)"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**"
+    ]
+  },
+  "dependencies": {
+    "js-md5": "^0.7.3",
+    "js-sha1": "^0.6.0"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "@types/js-md5": "^0.4.2",
@@ -31,33 +42,5 @@
     "ts-jest": "^23.10.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "tsconfig.json"
-      }
-    },
-    "testMatch": [
-      "**/tests/*.+(ts|tsx|js)"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "lib/**",
-      "ui/**"
-    ]
-  },
-  "dependencies": {
-    "js-md5": "^0.7.3",
-    "js-sha1": "^0.6.0"
   }
 }

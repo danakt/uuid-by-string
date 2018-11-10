@@ -1,6 +1,6 @@
-import { longText } from './longText'
+const { longText } = require('./longText')
 
-export const samples = [
+module.exports.samples = [
   {
     title: 'empty string',
     // prettier-ignore

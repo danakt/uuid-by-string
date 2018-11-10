@@ -1,24 +1,18 @@
-import {
+const generateUuid = require('..')
+const {
   uint8ToHex,
   md5Hash,
   stringToCharBuffer,
   sha1Hash,
   hashToUuid,
-  uint8ArrayToHex,
-  generateUuid
-} from '../src'
-import { longText } from './__mock__/longText'
-import { samples } from './__mock__/samples'
+  uint8ArrayToHex
+} = require('../src/lib')
+const { longText } = require('./__mock__/longText')
+const { samples } = require('./__mock__/samples')
 
 const UUID_REGEXP = /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/
 
-const hex: [number, string][] = [
-  [255, 'ff'],
-  [0, '00'],
-  [8, '08'],
-  [11, '0b'],
-  [111, '6f']
-]
+const hex = [[255, 'ff'], [0, '00'], [8, '08'], [11, '0b'], [111, '6f']]
 
 describe('unit tests', () => {
   test('should convert byte number to hex representation', () => {
@@ -74,6 +68,14 @@ describe('unit tests', () => {
 })
 
 describe('func tests', () => {
+  test('should throw error because of the wrong value', () => {
+    expect(() => generateUuid()).toThrowError()
+  })
+
+  test('should throw error because of the wrong version', () => {
+    expect(() => generateUuid('Hello', 'world', 1)).toThrowError()
+  })
+
   test('should generate uuid v3 from string', () => {
     for (let i = 0; i < samples.length; i++) {
       const uuid = generateUuid(samples[i].string)
