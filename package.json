@@ -1,11 +1,11 @@
 {
   "name": "uuid-by-string",
-  "version": "0.6.0",
+  "version": "2.0.0-alpha.0",
   "description": "Generating uuid-hash from string",
   "main": "src/index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "mocha -c -s 0"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,11 @@
   },
   "keywords": [
     "uuid",
-    "guid"
+    "guid",
+    "rfc4122",
+    "hash",
+    "v3",
+    "v5"
   ],
   "author": "Danakt Frost",
   "license": "MIT",
@@ -21,8 +25,26 @@
     "url": "https://github.com/Danakt/uuid-by-string/issues"
   },
   "homepage": "https://github.com/Danakt/uuid-by-string",
+  "jest": {
+    "testMatch": [
+      "**/tests/*.+(ts|tsx|js)"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**"
+    ]
+  },
+  "dependencies": {
+    "js-md5": "^0.7.3",
+    "js-sha1": "^0.6.0"
+  },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.5.3"
+    "@types/jest": "^23.3.9",
+    "@types/js-md5": "^0.4.2",
+    "@types/node": "^10.12.3",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
   }
 }

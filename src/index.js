@@ -1,151 +1,51 @@
-/**
- * Generating UUID based on a string
- * @author Danakt Frost <mail@danakt.ru>
- *
- * Changelist
- * — 0.4.0
- * Made more than 10 times faster
- * — 0.5.0
- * Made twice faster
- * — 0.6.0
- * Added typescript typings
- */
-'use strict'
+const { md5Hash, stringToCharBuffer, sha1Hash, hashToUuid, concatBuffers } = require('./lib')
+
+/** Uin8Array with zero items */
+var EMPTY_UINT8_ARRAY = new Uint8Array(0)
 
 /**
- * Default UUID for empty string
- * @type {string}
+ * Generates the Name-Based UUID hashes v3 and v5 according to RFC-4122
+ * https://tools.ietf.org/html/rfc4122#section-4.3
+ * @param {string} target Hashing target
+ * @param {string} [namespace] Some name space within which generation occurs
+ * @param {3|5} [version=5] Version of UUID. Available versions is 3 and 5
+ * according to RFC-4122. The version is responsible for the hashing algorithm:
+ * version 3 uses MD5, and version 5 uses SHA-1. Default is 5.
+ * @returns {string} UUID
  */
-var DEFAULT_UUID = '00000000-0000-4000-8000-000000000000'
-
-/**
- * Keys of UUID parts for hashing
- * @type {Array<number>}
- */
-var KEYS_TABLE = [0xf6, 0x51c, 0xd7a]
-
-/**
- * Removes trailing zeros in integer
- * @param  {number} int
- * @return {number}
- */
-function removeTrailingZeros(int) {
-  var out = int
-  var n = out / 10
-
-  // I don't know why, but that:
-  // (out % 10 === 0)
-  // 2 times slower than that:
-  while (Math.floor(n) === n) {
-    out = n
-    n = n / 10
+function generateUuid(target, namespace, version) {
+  if (typeof target !== 'string') {
+    throw TypeError('Value must be string')
   }
 
-  return out
+  if (typeof namespace === 'number') {
+    return generateUuid(target, undefined, namespace)
+  }
+
+  if (version == null) {
+    return generateUuid(target, namespace, 5)
+  }
+
+  if (version !== 3 && version !== 5) {
+    throw TypeError('Version of UUID can be only 3 or 5')
+  }
+
+  // Parsing target chars
+  var charBuffer = stringToCharBuffer(target)
+
+  // TODO: Test namespace for uuid and parse to buffer
+  var namespaceCharBuffer = typeof namespace === 'string' ? stringToCharBuffer(namespace) : EMPTY_UINT8_ARRAY
+
+  // Concatenation two buffers of strings to one
+  var buffer = concatBuffers(namespaceCharBuffer, charBuffer)
+
+  // Getting hash
+  var hash = version === 3 ? md5Hash(buffer) : sha1Hash(buffer)
+
+  return hashToUuid(hash, version)
 }
 
 /**
- * Returns length of hexadecimal representation of decimal number
- * Slower variant:
- * @code
- *   function getLengthOfHexByInt(int) {
- *     return int.toString(16).length
- *   }
- *
- * @param  {number} int decimal integer
- * @return {number}     length of hex representation of the number
+ * Export module
  */
-function getLengthOfHexByInt(int) {
-  var acc = int
-
-  for (var len = 1; acc > 16; len++) {
-    acc /= 16
-  }
-
-  return len
-}
-
-/**
- * Generates part of UUID
- * @param  {string} input
- * @param  {number} key
- * @param  {number} maxHexLength
- * @return {string}
- */
-function generatePart(input, key, maxHexLength) {
-  // 14-digit number in hex is 16-digit in decimal, in turn, the js
-  // rounds everything that comes after the 16th sign among
-  if (maxHexLength == null || maxHexLength > 14) {
-    return generatePart(input, key, 14)
-  }
-
-  var acc = 1
-  var charIndex = 1
-  var count = 1
-  var str = input.trim()
-  var strLength = str.length
-
-  while (count < strLength || getLengthOfHexByInt(acc) < maxHexLength) {
-    count++
-
-    if (str.charAt(charIndex) === '') {
-      charIndex = 0
-    }
-
-    acc *= (str.charCodeAt(charIndex) + charIndex * strLength) * key
-    acc = removeTrailingZeros(acc)
-
-    while (getLengthOfHexByInt(acc) > maxHexLength) {
-      acc = Math.floor(acc / 10)
-    }
-
-    charIndex++
-  }
-
-  return acc.toString(16)
-}
-
-/**
- * Makes UUID
- * @param  {string} input String for get UUID
- * @return {string}       UUID
- */
-function getUuidByString(input) {
-  var str = input.toString()
-
-  if (str.length === 0) {
-    return DEFAULT_UUID
-  }
-
-  var lengthsList = [8, 11, 12]
-  var parts = KEYS_TABLE.map(function (hex, i) {
-    return generatePart(str, hex, lengthsList[i])
-  })
-
-  // Prepare parts of UUID
-  // UUID: 00000000-0000-4000-8000-000000000000
-  //            ↓    ↓    ↓    ↓    ↓
-  // Parts:     1    2    3    4    5
-  var preparedParts = [
-    parts[0],
-    parts[1].substr(0, 4),
-    '4' + parts[1].substr(4, 3),
-    (parseInt(parts[1][7], 16) & 0x3 | 0x8).toString(16) + parts[1].substr(8, 3),
-    parts[2]
-  ].join('-')
-
-  return preparedParts.toUpperCase()
-}
-
-/**
- * @exports
- */
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = getUuidByString
-} else if (typeof window !== 'undefined') {
-  window.getUuidByString = getUuidByString
-  // Legacy
-  window.getUUID = getUuidByString
-} else {
-  throw new Error('Unknown environment')
-}
+module.exports = generateUuid
