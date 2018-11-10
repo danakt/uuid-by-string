@@ -1,12 +1,5 @@
 const generateUuid = require('..')
-const {
-  uint8ToHex,
-  md5Hash,
-  stringToCharBuffer,
-  sha1Hash,
-  hashToUuid,
-  uint8ArrayToHex
-} = require('../src/lib')
+const { uint8ToHex, md5Hash, stringToCharBuffer, sha1Hash, hashToUuid, uint8ArrayToHex } = require('../src/lib')
 const { longText } = require('./__mock__/longText')
 const { samples } = require('./__mock__/samples')
 
@@ -36,17 +29,13 @@ describe('unit tests', () => {
 
   test('should generate valid md5 hash', () => {
     for (let i = 0; i < samples.length; i++) {
-      expect(md5Hash(stringToCharBuffer(samples[i].string))).toEqual(
-        samples[i].md5Hash
-      )
+      expect(md5Hash(stringToCharBuffer(samples[i].string))).toEqual(samples[i].md5Hash)
     }
   })
 
   test('should generate valid sha-1 hash', () => {
     for (let i = 0; i < samples.length; i++) {
-      expect(sha1Hash(stringToCharBuffer(samples[i].string))).toEqual(
-        samples[i].sha1Hash
-      )
+      expect(sha1Hash(stringToCharBuffer(samples[i].string))).toEqual(samples[i].sha1Hash)
     }
   })
 
@@ -78,7 +67,7 @@ describe('func tests', () => {
 
   test('should generate uuid v3 from string', () => {
     for (let i = 0; i < samples.length; i++) {
-      const uuid = generateUuid(samples[i].string)
+      const uuid = generateUuid(samples[i].string, 3)
 
       expect(uuid).toMatch(UUID_REGEXP)
       expect(uuid).toEqual(samples[i].uuidV3)
@@ -96,7 +85,7 @@ describe('func tests', () => {
 
   test('should generate uuid v5 from string', () => {
     for (let i = 0; i < samples.length; i++) {
-      const uuid = generateUuid(samples[i].string, 5)
+      const uuid = generateUuid(samples[i].string)
 
       expect(uuid).toMatch(UUID_REGEXP)
       expect(uuid).toEqual(samples[i].uuidV5)
