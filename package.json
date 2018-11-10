@@ -15,9 +15,12 @@
     "uuid",
     "guid",
     "rfc4122",
+    "rfc-4122",
     "hash",
     "v3",
-    "v5"
+    "v5",
+    "md5",
+    "sha-1"
   ],
   "author": "Danakt Frost",
   "license": "MIT",
