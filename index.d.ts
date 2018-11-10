@@ -8,8 +8,8 @@
  * version 3 uses MD5, and version 5 uses SHA-1.
  * @returns {string} UUID
  */
-declare function getUuidByString(target: string, namespace: string, version: 3 | 5): string
-declare function getUuidByString(target: string, version: 3 | 5): string
+declare function getUuidByString(target: string, namespace?: string, version?: 3 | 5): string
+declare function getUuidByString(target: string, version?: 3 | 5): string
 
 // prettier-ignore
 declare namespace getUuidByString {}
