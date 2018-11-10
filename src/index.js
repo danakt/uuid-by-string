@@ -8,9 +8,9 @@ var EMPTY_UINT8_ARRAY = new Uint8Array(0)
  * https://tools.ietf.org/html/rfc4122#section-4.3
  * @param {string} target Hashing target
  * @param {string} [namespace] Some name space within which generation occurs
- * @param {3|5} [version=3] Version of UUID. Available versions is 3 and 5
+ * @param {3|5} [version=5] Version of UUID. Available versions is 3 and 5
  * according to RFC-4122. The version is responsible for the hashing algorithm:
- * version 3 uses MD5, and version 5 uses SHA-1.
+ * version 3 uses MD5, and version 5 uses SHA-1. Default is 5.
  * @returns {string} UUID
  */
 function generateUuid(target, namespace, version) {
@@ -23,7 +23,7 @@ function generateUuid(target, namespace, version) {
   }
 
   if (version == null) {
-    return generateUuid(target, namespace, 3)
+    return generateUuid(target, namespace, 5)
   }
 
   if (version !== 3 && version !== 5) {

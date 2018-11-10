@@ -13,7 +13,11 @@
   },
   "keywords": [
     "uuid",
-    "guid"
+    "guid",
+    "rfc4122",
+    "hash",
+    "v3",
+    "v5"
   ],
   "author": "Danakt Frost",
   "license": "MIT",
