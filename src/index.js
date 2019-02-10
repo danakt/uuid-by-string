@@ -1,4 +1,4 @@
-const { md5Hash, stringToCharBuffer, sha1Hash, hashToUuid, concatBuffers } = require('./lib')
+var lib = require('./lib')
 
 /** Uin8Array with zero items */
 var EMPTY_UINT8_ARRAY = new Uint8Array(0)
@@ -31,18 +31,18 @@ function generateUuid(target, namespace, version) {
   }
 
   // Parsing target chars
-  var charBuffer = stringToCharBuffer(target)
+  var charBuffer = lib.stringToCharBuffer(target)
 
   // TODO: Test namespace for uuid and parse to buffer
-  var namespaceCharBuffer = typeof namespace === 'string' ? stringToCharBuffer(namespace) : EMPTY_UINT8_ARRAY
+  var namespaceCharBuffer = typeof namespace === 'string' ? lib.stringToCharBuffer(namespace) : EMPTY_UINT8_ARRAY
 
   // Concatenation two buffers of strings to one
-  var buffer = concatBuffers(namespaceCharBuffer, charBuffer)
+  var buffer = lib.concatBuffers(namespaceCharBuffer, charBuffer)
 
   // Getting hash
-  var hash = version === 3 ? md5Hash(buffer) : sha1Hash(buffer)
+  var hash = version === 3 ? lib.md5Hash(buffer) : lib.sha1Hash(buffer)
 
-  return hashToUuid(hash, version)
+  return lib.hashToUuid(hash, version)
 }
 
 /**
