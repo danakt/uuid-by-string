@@ -1,8 +1,8 @@
-var md5 = require('js-md5')
-var sha1 = require('js-sha1')
+var md5 = require('js-md5');
+var sha1 = require('js-sha1');
 
 /** List of hex digit for fast accessing by index */
-var HEX_DIGITS = '0123456789abcdef'.split('')
+var HEX_DIGITS = '0123456789abcdef'.split('');
 
 /**
  * Converts unsigned byte to hex representation
@@ -10,11 +10,11 @@ var HEX_DIGITS = '0123456789abcdef'.split('')
  * @returns {string} The hex representation
  */
 var uint8ToHex = function(ubyte) {
-  var first = ubyte >> 4
-  var second = ubyte - (first << 4)
+  var first = ubyte >> 4;
+  var second = ubyte - (first << 4);
 
-  return HEX_DIGITS[first] + HEX_DIGITS[second]
-}
+  return HEX_DIGITS[first] + HEX_DIGITS[second];
+};
 
 /**
  * Converts unsigned byte buffer to hex string
@@ -22,14 +22,14 @@ var uint8ToHex = function(ubyte) {
  * @returns {string} The hex string representation
  */
 var uint8ArrayToHex = function(buf) {
-  var out = []
+  var out = [];
 
   for (var i = 0; i < buf.length; i++) {
-    out.push(uint8ToHex(buf[i]))
+    out.push(uint8ToHex(buf[i]));
   }
 
-  return out.join('')
-}
+  return out.join('');
+};
 
 /**
  * Converts string to buffer of char codes
@@ -37,14 +37,14 @@ var uint8ArrayToHex = function(buf) {
  * @returns {Uint8Array} Buffer of char codes
  */
 var stringToCharBuffer = function(str) {
-  var buffer = new Uint8Array(str.length)
+  var buffer = new Uint8Array(str.length);
 
   for (var i = 0; i < str.length; i++) {
-    buffer[i] = str[i].charCodeAt(0)
+    buffer[i] = str[i].charCodeAt(0);
   }
 
-  return buffer
-}
+  return buffer;
+};
 
 /**
  * Generates MD5 hash from buffer
@@ -52,8 +52,8 @@ var stringToCharBuffer = function(str) {
  * @returns {Uint8Array} MD5 hash buffer
  */
 var md5Hash = function(buf) {
-  return new Uint8Array(md5.arrayBuffer(buf))
-}
+  return new Uint8Array(md5.arrayBuffer(buf));
+};
 
 /**
  * Generates SHA-1 hash from buffer
@@ -61,8 +61,8 @@ var md5Hash = function(buf) {
  * @returns {Uint8Array} SHA-1 hash buffer
  */
 var sha1Hash = function(buf) {
-  return new Uint8Array(sha1.arrayBuffer(buf))
-}
+  return new Uint8Array(sha1.arrayBuffer(buf));
+};
 
 /**
  * Concatenates two uint8 buffers
@@ -71,13 +71,13 @@ var sha1Hash = function(buf) {
  * @returns {Uint8Array} Concatenation result
  */
 var concatBuffers = function(buf1, buf2) {
-  var out = new Buffer(buf1.length + buf2.length)
+  var out = new Buffer(buf1.length + buf2.length);
 
-  out.set(new Uint8Array(buf1), 0)
-  out.set(new Uint8Array(buf2), buf1.byteLength)
+  out.set(new Uint8Array(buf1), 0);
+  out.set(new Uint8Array(buf2), buf1.byteLength);
 
-  return out
-}
+  return out;
+};
 
 /**
  * Creates uuid from hash buffer
@@ -108,8 +108,8 @@ var hashToUuid = function(hashBuffer, version) {
     //  The spatially unique node identifier
 
     uint8ArrayToHex(hashBuffer.slice(10, 16))
-  ].join('')
-}
+  ].join('');
+};
 
 module.exports = {
   uint8ToHex,
@@ -119,4 +119,4 @@ module.exports = {
   sha1Hash,
   concatBuffers,
   hashToUuid
-}
+};
