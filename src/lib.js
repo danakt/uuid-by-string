@@ -71,7 +71,7 @@ var sha1Hash = function(buf) {
  * @returns {Uint8Array} Concatenation result
  */
 var concatBuffers = function(buf1, buf2) {
-  var out = new Buffer(buf1.length + buf2.length);
+  var out = new Uint8Array(buf1.length + buf2.length);
 
   out.set(new Uint8Array(buf1), 0);
   out.set(new Uint8Array(buf2), buf1.byteLength);
