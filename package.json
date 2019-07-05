@@ -1,6 +1,6 @@
 {
   "name": "uuid-by-string",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Generating uuid-hash from string",
   "main": "src/index.js",
   "typings": "index.d.ts",
