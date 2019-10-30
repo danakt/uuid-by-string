@@ -96,7 +96,7 @@ var hashToUuid = function(hashBuffer, version) {
     '-',
 
     // The high field of the timestamp multiplexed with the version number
-    uint8ToHex((hashBuffer[6] & 0x0f) | (version * 10)),
+    uint8ToHex((hashBuffer[6] & 0x0f) | parseInt(version * 10, 16)),
     uint8ToHex(hashBuffer[7]),
     '-',
 

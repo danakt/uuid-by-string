@@ -100,6 +100,10 @@ describe('func tests', () => {
       expect(uuid).not.toEqual(samples[i].uuidV5);
     }
   });
+
+  test('should generate platform compatible uuid', () => {
+    expect(generateUuid('9239107d-259f-4cf8-b62d-0964b680ab08', 3)).toBe('12f01aa4-5090-3f83-b823-7e7cb43246e7');
+  });
 });
 
 describe('checker of speed of one generation', () => {
