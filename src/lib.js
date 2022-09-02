@@ -9,7 +9,7 @@ var HEX_DIGITS = '0123456789abcdef'.split('');
  * @param {number} ubyte The unsigned byte to convert
  * @returns {string} The hex representation
  */
-var uint8ToHex = function(ubyte) {
+var uint8ToHex = function (ubyte) {
   var first = ubyte >> 4;
   var second = ubyte - (first << 4);
 
@@ -21,7 +21,7 @@ var uint8ToHex = function(ubyte) {
  * @param {Uint8Array} buf The unsigned bytes buffer
  * @returns {string} The hex string representation
  */
-var uint8ArrayToHex = function(buf) {
+var uint8ArrayToHex = function (buf) {
   var out = [];
 
   for (var i = 0; i < buf.length; i++) {
@@ -36,11 +36,12 @@ var uint8ArrayToHex = function(buf) {
  * @param {string} str The string to parse
  * @returns {Uint8Array} Buffer of char codes
  */
-var stringToCharBuffer = function(str) {
-  var buffer = new Uint8Array(str.length);
+var stringToCharBuffer = function (str) {
+  var escapedStr = unescape(encodeURIComponent(str));
+  var buffer = new Uint8Array(escapedStr.length);
 
-  for (var i = 0; i < str.length; i++) {
-    buffer[i] = str[i].charCodeAt(0);
+  for (var i = 0; i < escapedStr.length; i++) {
+    buffer[i] = escapedStr[i].charCodeAt(0);
   }
 
   return buffer;
@@ -51,7 +52,7 @@ var stringToCharBuffer = function(str) {
  * @param {Uint8Array} buf Buffer of char codes
  * @returns {Uint8Array} MD5 hash buffer
  */
-var md5Hash = function(buf) {
+var md5Hash = function (buf) {
   return new Uint8Array(md5.arrayBuffer(buf));
 };
 
@@ -60,7 +61,7 @@ var md5Hash = function(buf) {
  * @param {Uint8Array} buf Buffer of char codes
  * @returns {Uint8Array} SHA-1 hash buffer
  */
-var sha1Hash = function(buf) {
+var sha1Hash = function (buf) {
   return new Uint8Array(sha1.arrayBuffer(buf));
 };
 
@@ -70,7 +71,7 @@ var sha1Hash = function(buf) {
  * @param {Uint8Array} buf2 The second buffer to concatenate
  * @returns {Uint8Array} Concatenation result
  */
-var concatBuffers = function(buf1, buf2) {
+var concatBuffers = function (buf1, buf2) {
   var out = new Uint8Array(buf1.length + buf2.length);
 
   out.set(new Uint8Array(buf1), 0);
@@ -85,7 +86,7 @@ var concatBuffers = function(buf1, buf2) {
  * @param {3|5} version Version of uuid
  * @returns {string} The uuid
  */
-var hashToUuid = function(hashBuffer, version) {
+var hashToUuid = function (hashBuffer, version) {
   return [
     // The low field of the timestamp
     uint8ArrayToHex(hashBuffer.slice(0, 4)),
@@ -107,16 +108,16 @@ var hashToUuid = function(hashBuffer, version) {
     '-',
     //  The spatially unique node identifier
 
-    uint8ArrayToHex(hashBuffer.slice(10, 16))
+    uint8ArrayToHex(hashBuffer.slice(10, 16)),
   ].join('');
 };
 
 module.exports = {
-  uint8ToHex,
-  uint8ArrayToHex,
-  stringToCharBuffer,
-  md5Hash,
-  sha1Hash,
-  concatBuffers,
-  hashToUuid
+  uint8ToHex: uint8ToHex,
+  uint8ArrayToHex: uint8ArrayToHex,
+  stringToCharBuffer: stringToCharBuffer,
+  md5Hash: md5Hash,
+  sha1Hash: sha1Hash,
+  concatBuffers: concatBuffers,
+  hashToUuid: hashToUuid,
 };
