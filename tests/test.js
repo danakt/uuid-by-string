@@ -1,5 +1,14 @@
 const generateUuid = require('..');
-const { uint8ToHex, md5Hash, stringToCharBuffer, sha1Hash, hashToUuid, uint8ArrayToHex } = require('../src/lib');
+const {
+  uint8ToHex,
+  md5Hash,
+  stringToCharBuffer,
+  sha1Hash,
+  hashToUuid,
+  uint8ArrayToHex,
+  validateUuid,
+  parseUuid,
+} = require('../src/lib');
 const { longText } = require('./__mock__/longText');
 
 const stringSamples = [
@@ -64,6 +73,22 @@ describe('unit', () => {
     const uuid = hashToUuid(arr, 5);
     expect(uuid).toMatchSnapshot();
   });
+
+  test('should validate uuid', () => {
+    expect(validateUuid('d3486ae9-136e-5856-bc42-212385ea7970')).toBe(true);
+  });
+
+  test('should invalidate uuid', () => {
+    expect(validateUuid('Lorem ipsum')).toBe(false);
+  });
+
+  test('should parse uuid', () => {
+    expect(parseUuid('d3486ae9-136e-5856-bc42-212385ea7970')).toMatchSnapshot();
+  });
+
+  test('should throw error while parsing uuid', () => {
+    expect(() => parseUuid('Lorem ipsum')).toThrowError();
+  });
 });
 
 describe('integration', () => {
@@ -85,7 +110,7 @@ describe('integration', () => {
 
   test('should generate uuid v3 from string with namespace', () => {
     for (let i = 0; i < stringSamples.length; i++) {
-      const uuid = generateUuid(stringSamples[i], 'namespace');
+      const uuid = generateUuid(stringSamples[i], 'd3486ae9-136e-5856-bc42-212385ea7970');
 
       expect(uuid).toMatchSnapshot();
     }
@@ -101,7 +126,7 @@ describe('integration', () => {
 
   test('should generate uuid v5 from string with namespace', () => {
     for (let i = 0; i < stringSamples.length; i++) {
-      const uuid = generateUuid(stringSamples[i], 'namespace', 5);
+      const uuid = generateUuid(stringSamples[i], 'd3486ae9-136e-5856-bc42-212385ea7970', 5);
 
       expect(uuid).toMatchSnapshot();
     }

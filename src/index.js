@@ -31,13 +31,11 @@ function generateUuid(target, namespace, version) {
   }
 
   // Parsing target chars
-  var charBuffer = lib.stringToCharBuffer(target);
-
-  // TODO: Test namespace for uuid and parse to buffer
-  var namespaceCharBuffer = typeof namespace === 'string' ? lib.stringToCharBuffer(namespace) : EMPTY_UINT8_ARRAY;
+  var targetCharBuffer = lib.stringToCharBuffer(target);
+  var namespaceCharBuffer = typeof namespace === 'string' ? lib.parseUuid(namespace) : EMPTY_UINT8_ARRAY;
 
   // Concatenation two buffers of strings to one
-  var buffer = lib.concatBuffers(namespaceCharBuffer, charBuffer);
+  var buffer = lib.concatBuffers(namespaceCharBuffer, targetCharBuffer);
 
   // Getting hash
   var hash = version === 3 ? lib.md5Hash(buffer) : lib.sha1Hash(buffer);

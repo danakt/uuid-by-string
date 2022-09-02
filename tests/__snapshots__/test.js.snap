@@ -10,15 +10,15 @@ exports[`integration should generate uuid v3 from string 4`] = `"20b085c2-2e91-3
 
 exports[`integration should generate uuid v3 from string 5`] = `"34e58612-20fa-3978-bbe1-656b34ab2f2f"`;
 
-exports[`integration should generate uuid v3 from string with namespace 1`] = `"1963ebc6-1173-588a-8385-135580dc1b7c"`;
+exports[`integration should generate uuid v3 from string with namespace 1`] = `"6d72c664-05f7-5ae7-8653-ee9ebed25b00"`;
 
-exports[`integration should generate uuid v3 from string with namespace 2`] = `"be81306d-2819-5369-8c81-12c301c5376b"`;
+exports[`integration should generate uuid v3 from string with namespace 2`] = `"6c85afc9-ff2a-56d9-b451-75a825751bed"`;
 
-exports[`integration should generate uuid v3 from string with namespace 3`] = `"f2e4e04e-238c-5d5f-9da3-9bbbebd06474"`;
+exports[`integration should generate uuid v3 from string with namespace 3`] = `"a359b647-73dd-52b9-ac27-6119382182db"`;
 
-exports[`integration should generate uuid v3 from string with namespace 4`] = `"5007e568-41c0-570e-9c81-ff6ef89489f1"`;
+exports[`integration should generate uuid v3 from string with namespace 4`] = `"a7928b1a-03e8-5a2e-adf9-dee22ea1d1d5"`;
 
-exports[`integration should generate uuid v3 from string with namespace 5`] = `"2cad4c16-feae-5bc8-b589-b188363b0c65"`;
+exports[`integration should generate uuid v3 from string with namespace 5`] = `"5daf5b6d-b5e8-5e22-96c4-71e0fd8c4540"`;
 
 exports[`integration should generate uuid v5 from string 1`] = `"da39a3ee-5e6b-5b0d-b255-bfef95601890"`;
 
@@ -30,15 +30,15 @@ exports[`integration should generate uuid v5 from string 4`] = `"ae49974d-2750-5
 
 exports[`integration should generate uuid v5 from string 5`] = `"c81386c7-744f-5af9-8899-cfdd14664aa7"`;
 
-exports[`integration should generate uuid v5 from string with namespace 1`] = `"1963ebc6-1173-588a-8385-135580dc1b7c"`;
+exports[`integration should generate uuid v5 from string with namespace 1`] = `"6d72c664-05f7-5ae7-8653-ee9ebed25b00"`;
 
-exports[`integration should generate uuid v5 from string with namespace 2`] = `"be81306d-2819-5369-8c81-12c301c5376b"`;
+exports[`integration should generate uuid v5 from string with namespace 2`] = `"6c85afc9-ff2a-56d9-b451-75a825751bed"`;
 
-exports[`integration should generate uuid v5 from string with namespace 3`] = `"f2e4e04e-238c-5d5f-9da3-9bbbebd06474"`;
+exports[`integration should generate uuid v5 from string with namespace 3`] = `"a359b647-73dd-52b9-ac27-6119382182db"`;
 
-exports[`integration should generate uuid v5 from string with namespace 4`] = `"5007e568-41c0-570e-9c81-ff6ef89489f1"`;
+exports[`integration should generate uuid v5 from string with namespace 4`] = `"a7928b1a-03e8-5a2e-adf9-dee22ea1d1d5"`;
 
-exports[`integration should generate uuid v5 from string with namespace 5`] = `"2cad4c16-feae-5bc8-b589-b188363b0c65"`;
+exports[`integration should generate uuid v5 from string with namespace 5`] = `"5daf5b6d-b5e8-5e22-96c4-71e0fd8c4540"`;
 
 exports[`unit should convert hash to uuid v3 1`] = `"d41d8cd9-8f00-3204-a980-0998ecf8427e"`;
 
@@ -100963,5 +100963,26 @@ Uint8Array [
   90,
   145,
   223,
+]
+`;
+
+exports[`unit should parse uuid 1`] = `
+Uint8Array [
+  211,
+  72,
+  106,
+  233,
+  19,
+  110,
+  88,
+  86,
+  188,
+  66,
+  33,
+  35,
+  133,
+  234,
+  121,
+  112,
 ]
 `;
