@@ -6,7 +6,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "jest",
-    "prepublishOnly": "npm run test"
+    "lint": "eslint",
+    "prepublishOnly": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "js-sha1": "^0.6.0"
   },
   "devDependencies": {
+    "eslint": "^8.23.0",
     "jest": "^27.0.1"
   }
 }
