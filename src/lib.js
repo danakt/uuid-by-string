@@ -22,13 +22,13 @@ var uint8ToHex = function (ubyte) {
  * @returns {string} The hex string representation
  */
 var uint8ArrayToHex = function (buf) {
-  var out = [];
+  var out = '';
 
   for (var i = 0; i < buf.length; i++) {
-    out.push(uint8ToHex(buf[i]));
+    out += uint8ToHex(buf[i]);
   }
 
-  return out.join('');
+  return out;
 };
 
 /**
