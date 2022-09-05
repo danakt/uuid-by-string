@@ -45,7 +45,7 @@ const uuidV5Hash = getUuid('Hello world!', 5);
 `getUuid(name [, namespace, version]);`
 
 - `name` — hashing target
-- `namespace` _Optional_ — namespace in which generation occurs
+- `namespace` _Optional_ — UUID namespace
 - `version` _Optional_ — 3 or 5, version of UUID
 
 ## License
