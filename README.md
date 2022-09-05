@@ -1,7 +1,6 @@
 uuid-by-string
 [![NPM](https://img.shields.io/npm/v/uuid-by-string.svg?style=flat-square&maxAge=3600)](https://www.npmjs.com/package/uuid-by-string)
 [![Downloads](https://img.shields.io/npm/dw/uuid-by-string.svg?style=flat-square&maxAge=3600)](https://www.npmjs.com/package/uuid-by-string)
-[![Build Status](https://img.shields.io/travis/danakt/uuid-by-string.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/danakt/uuid-by-string)
 =======================
 Generates the [RFC-4122](https://tools.ietf.org/html/rfc4122#section-4.3) Name-Based UUID. Supports 3 and 5 versions of UUID.
 
