@@ -92,12 +92,17 @@ describe('unit', () => {
 });
 
 describe('integration', () => {
+  test('Hello world!', () => {
+    expect(generateUuid('Hello world!')).toBe('d3486ae9-136e-5856-bc42-212385ea7970');
+  });
+
   test('should throw error because of the wrong value', () => {
     expect(() => generateUuid()).toThrowError();
   });
 
   test('should throw error because of the wrong version', () => {
-    expect(() => generateUuid('Hello', 'world', 1)).toThrowError();
+    expect(() => generateUuid('Hello', 1)).toThrowError();
+    expect(() => generateUuid('Hello', 'd3486ae9-136e-5856-bc42-212385ea7970', 1)).toThrowError();
   });
 
   test('should generate uuid v3 from string', () => {
