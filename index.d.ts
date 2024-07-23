@@ -6,9 +6,10 @@
  * @param {3|5} [version=3] Version of UUID. Available versions is 3 and 5
  * according to RFC-4122. The version is responsible for the hashing algorithm:
  * version 3 uses MD5, and version 5 uses SHA-1.
+ * @param {boolean} [legacyMethod]
  * @returns {string} UUID
  */
-declare function getUuidByString(target: string, namespace?: string, version?: 3 | 5): string
+declare function getUuidByString(target: string, namespace?: string, version?: 3 | 5, legacyMethod?: boolean): string
 declare function getUuidByString(target: string, version?: 3 | 5): string
 
 // prettier-ignore

@@ -11,6 +11,8 @@ const {
 } = require('../src/lib');
 const { longText } = require('./__mock__/longText');
 
+const NIL_UUID = '00000000-0000-0000-0000-000000000000'
+
 const stringSamples = [
   '',
   'Hello world!',
@@ -93,7 +95,11 @@ describe('unit', () => {
 
 describe('integration', () => {
   test('Hello world!', () => {
-    expect(generateUuid('Hello world!')).toBe('d3486ae9-136e-5856-bc42-212385ea7970');
+    expect(generateUuid('Hello world!')).toBe('ec74fa6c-5be6-5388-8cb3-d91001210130');
+  });
+
+  test('Hello world! - legacy', () => {
+    expect(generateUuid('Hello world!', undefined, undefined, true)).toBe('d3486ae9-136e-5856-bc42-212385ea7970');
   });
 
   test('should throw error because of the wrong value', () => {
@@ -108,6 +114,14 @@ describe('integration', () => {
   test('should generate uuid v3 from string', () => {
     for (let i = 0; i < stringSamples.length; i++) {
       const uuid = generateUuid(stringSamples[i], 3);
+
+      expect(uuid).toMatchSnapshot();
+    }
+  });
+
+  test('should generate uuid v3 from string - legacy', () => {
+    for (let i = 0; i < stringSamples.length; i++) {
+      const uuid = generateUuid(stringSamples[i], undefined, 3, true);
 
       expect(uuid).toMatchSnapshot();
     }
@@ -129,6 +143,14 @@ describe('integration', () => {
     }
   });
 
+  test('should generate uuid v5 from string - legacy', () => {
+    for (let i = 0; i < stringSamples.length; i++) {
+      const uuid = generateUuid(stringSamples[i], undefined, undefined, true);
+
+      expect(uuid).toMatchSnapshot();
+    }
+  });
+
   test('should generate uuid v5 from string with namespace', () => {
     for (let i = 0; i < stringSamples.length; i++) {
       const uuid = generateUuid(stringSamples[i], 'd3486ae9-136e-5856-bc42-212385ea7970', 5);
@@ -138,7 +160,11 @@ describe('integration', () => {
   });
 
   test('should generate platform compatible uuid', () => {
-    expect(generateUuid('9239107d-259f-4cf8-b62d-0964b680ab08', 3)).toBe('12f01aa4-5090-3f83-b823-7e7cb43246e7');
+    expect(generateUuid('9239107d-259f-4cf8-b62d-0964b680ab08', 3)).toBe('027cee5f-02c5-313a-8acd-62f33637e544');
+  });
+
+  test('should generate platform compatible uuid - legacy', () => {
+    expect(generateUuid('9239107d-259f-4cf8-b62d-0964b680ab08', undefined, 3, true)).toBe('12f01aa4-5090-3f83-b823-7e7cb43246e7');
   });
 });
 
@@ -147,3 +173,25 @@ describe('checker of speed of one generation', () => {
     generateUuid(longText);
   });
 });
+
+describe('tests for the nil UUID namespace', () => {
+  test('v3', () => {
+    for (let i = 0; i < stringSamples.length; i++) {
+      expect(
+        generateUuid(stringSamples[i], NIL_UUID, 3)
+      ).toBe(
+        generateUuid(stringSamples[i], 3)
+      );
+    }
+  });
+
+  test('v5', () => {
+    for (let i = 0; i < stringSamples.length; i++) {
+      expect(
+        generateUuid(stringSamples[i], NIL_UUID, 5)
+      ).toBe(
+        generateUuid(stringSamples[i], 5)
+      );
+    }
+  });
+})
