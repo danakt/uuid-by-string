@@ -1,5 +1,4 @@
-var md5 = require('js-md5');
-var sha1 = require('js-sha1');
+var crypto = require('node:crypto');
 
 /** List of hex digit for fast accessing by index */
 var HEX_DIGITS = '0123456789abcdef'.split('');
@@ -72,7 +71,7 @@ var stringToCharBuffer = function (str) {
  * @returns {Uint8Array} MD5 hash buffer
  */
 var md5Hash = function (buf) {
-  return new Uint8Array(md5.arrayBuffer(buf));
+  return new Uint8Array(crypto.createHash('md5').update(buf).digest());
 };
 
 /**
@@ -81,7 +80,7 @@ var md5Hash = function (buf) {
  * @returns {Uint8Array} SHA-1 hash buffer
  */
 var sha1Hash = function (buf) {
-  return new Uint8Array(sha1.arrayBuffer(buf));
+  return new Uint8Array(crypto.createHash('sha1').update(buf).digest());
 };
 
 /**
